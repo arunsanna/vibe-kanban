@@ -731,8 +731,36 @@ impl ContainerService for LocalContainerService {
                 Ok(worktree_path.to_string_lossy().to_string())
             }
             db::models::task_attempt::IsolationMode::Branch => {
+                // Enforce single Branch-mode attempt per project (advisory lock)
+                let has_branch_mode_running: bool = sqlx::query_scalar(
+                    r#"SELECT EXISTS(
+                        SELECT 1
+                          FROM execution_processes ep
+                          JOIN task_attempts ta ON ep.task_attempt_id = ta.id
+                          JOIN tasks t ON ta.task_id = t.id
+                         WHERE ep.status = 'running'
+                           AND ta.isolation_mode = 'branch'
+                           AND t.project_id = ?
+                    )"#,
+                )
+                .bind(task.project_id)
+                .fetch_one(&self.db.pool)
+                .await
+                .unwrap_or(false);
+
+                if has_branch_mode_running {
+                    return Err(ContainerError::Other(anyhow!(
+                        "Another Branch-mode attempt is running for this project. Finish or stop it before starting a new one."
+                    )));
+                }
+
                 // Ensure branch exists at target base and checkout in primary repo
                 let git = services::services::git_cli::GitCli::new();
+                // Auto-stash dirty working tree before switching branches
+                if git.is_dirty(&project.git_repo_path).unwrap_or(false) {
+                    let stash_msg = format!("vk-auto-stash-{}", task_attempt.id);
+                    let _ = git.stash_push(&project.git_repo_path, &stash_msg);
+                }
                 // Create branch from target if it doesn't exist; if it exists, `branch` will error, so ignore failure
                 let _ = git.git(
                     &project.git_repo_path,
@@ -789,6 +817,12 @@ impl ContainerService for LocalContainerService {
                 if let Some(repo_path) = &git_repo_path {
                     let git = services::services::git_cli::GitCli::new();
                     let _ = git.git(repo_path, ["checkout", &task_attempt.target_branch]);
+                    // Try to pop auto-stash if it exists
+                    let stash_msg = format!("vk-auto-stash-{}", task_attempt.id);
+                    if let Ok(Some(stash_ref)) = git.find_stash_ref_by_message(repo_path, &stash_msg)
+                    {
+                        let _ = git.stash_pop_ref(repo_path, &stash_ref);
+                    }
                 }
                 Ok(())
             }

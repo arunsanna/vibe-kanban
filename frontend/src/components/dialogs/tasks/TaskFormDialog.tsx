@@ -82,8 +82,11 @@ export const TaskFormDialog = NiceModal.create<TaskFormDialogProps>(
     >([]);
     const [branches, setBranches] = useState<GitBranch[]>([]);
     const [selectedBranch, setSelectedBranch] = useState<string>('');
-    const [selectedExecutorProfile, setSelectedExecutorProfile] =
+  const [selectedExecutorProfile, setSelectedExecutorProfile] =
       useState<ExecutorProfileId | null>(null);
+    const [isolationMode, setIsolationMode] = useState<'worktree' | 'branch'>(
+      'worktree'
+    );
     const [quickstartExpanded, setQuickstartExpanded] =
       useState<boolean>(false);
     const imageUploadRef = useRef<ImageUploadSectionHandle>(null);
@@ -417,6 +420,7 @@ export const TaskFormDialog = NiceModal.create<TaskFormDialogProps>(
             },
             executor_profile_id: finalExecutorProfile,
             base_branch: selectedBranch,
+            isolation_mode: isolationMode,
           },
           {
             onSuccess: () => {
@@ -702,6 +706,41 @@ export const TaskFormDialog = NiceModal.create<TaskFormDialogProps>(
                               </div>
                             </div>
                           )}
+
+                          {/* Isolation Mode Selector */}
+                          <div className="pt-1">
+                            <Label className="text-sm font-medium">
+                              Isolation Mode
+                            </Label>
+                            <div className="mt-2 flex items-center gap-3">
+                              <label className="flex items-center gap-2 text-sm">
+                                <input
+                                  type="radio"
+                                  name="isolation-mode"
+                                  value="worktree"
+                                  checked={isolationMode === 'worktree'}
+                                  onChange={() => setIsolationMode('worktree')}
+                                  disabled={
+                                    isSubmitting || isSubmittingAndStart
+                                  }
+                                />
+                                <span>Worktree (default)</span>
+                              </label>
+                              <label className="flex items-center gap-2 text-sm">
+                                <input
+                                  type="radio"
+                                  name="isolation-mode"
+                                  value="branch"
+                                  checked={isolationMode === 'branch'}
+                                  onChange={() => setIsolationMode('branch')}
+                                  disabled={
+                                    isSubmitting || isSubmittingAndStart
+                                  }
+                                />
+                                <span>Branch (better for macOS builds)</span>
+                              </label>
+                            </div>
+                          </div>
                         </div>
                       </details>
                     </div>

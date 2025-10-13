@@ -250,6 +250,44 @@ impl GitCli {
         Ok(())
     }
 
+    /// Return true if there are any uncommitted changes (tracked or untracked)
+    pub fn is_dirty(&self, repo_path: &Path) -> Result<bool, GitCliError> {
+        self.has_changes(repo_path)
+    }
+
+    /// Stash current changes (including untracked) with a message
+    pub fn stash_push(&self, repo_path: &Path, message: &str) -> Result<(), GitCliError> {
+        self.git(repo_path, ["stash", "push", "-u", "-m", message])
+            .map(|_| ())
+    }
+
+    /// Find a stash reference (e.g., stash@{0}) by matching the message substring
+    pub fn find_stash_ref_by_message(
+        &self,
+        repo_path: &Path,
+        needle: &str,
+    ) -> Result<Option<String>, GitCliError> {
+        let out = self.git(repo_path, ["stash", "list"])?;
+        for line in out.lines() {
+            let l = line.trim();
+            // Format: stash@{0}: On <branch>: <message>
+            if let Some((head, msg)) = l.split_once(':') {
+                if msg.contains(needle) {
+                    return Ok(Some(head.trim().to_string()));
+                }
+            }
+        }
+        Ok(None)
+    }
+
+    /// Pop a specific stash reference (e.g., stash@{0}). Returns Ok even if pop fails.
+    pub fn stash_pop_ref(&self, repo_path: &Path, stash_ref: &str) -> Result<(), GitCliError> {
+        match self.git(repo_path, ["stash", "pop", stash_ref]) {
+            Ok(_) => Ok(()),
+            Err(e) => Err(self.classify_cli_error(e.to_string())),
+        }
+    }
+
     pub fn list_worktrees(&self, repo_path: &Path) -> Result<Vec<WorktreeEntry>, GitCliError> {
         let out = self.git(repo_path, ["worktree", "list", "--porcelain"])?;
         let mut entries = Vec::new();

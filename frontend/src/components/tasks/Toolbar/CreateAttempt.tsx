@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { Button } from '@/components/ui/button.tsx';
 import { X } from 'lucide-react';
 import type { GitBranch, Task } from 'shared/types';
@@ -43,6 +43,9 @@ function CreateAttempt({
 }: Props) {
   const { isAttemptRunning } = useAttemptExecution(selectedAttempt?.id);
   const { createAttempt, isCreating } = useAttemptCreation(task.id);
+  const [isolationMode, setIsolationMode] = useState<'worktree' | 'branch'>(
+    'worktree'
+  );
 
   // Create attempt logic
   const actuallyCreateAttempt = useCallback(
@@ -56,9 +59,10 @@ function CreateAttempt({
       await createAttempt({
         profile,
         baseBranch: effectiveBaseBranch,
+        isolationMode,
       });
     },
-    [createAttempt, selectedBranch]
+    [createAttempt, selectedBranch, isolationMode]
   );
 
   // Handler for Enter key or Start button
@@ -125,8 +129,8 @@ function CreateAttempt({
         <div className="flex items-center">
           <label className="text-xs font-medium text-muted-foreground">
             Each time you start an attempt, a new session is initiated with your
-            selected coding agent, and a git worktree and corresponding task
-            branch are created.
+            selected coding agent. Choose between a Git worktree or a direct
+            branch checkout for isolation.
           </label>
         </div>
 
@@ -178,6 +182,35 @@ function CreateAttempt({
             >
               {isCreating ? 'Creating...' : 'Start'}
             </Button>
+          </div>
+
+          {/* Isolation Mode */}
+          <div className="col-span-1 sm:col-span-2">
+            <Label className="text-sm font-medium">Isolation Mode</Label>
+            <div className="mt-2 flex items-center gap-3">
+              <label className="flex items-center gap-2 text-xs">
+                <input
+                  type="radio"
+                  name="isolation-mode"
+                  value="worktree"
+                  checked={isolationMode === 'worktree'}
+                  onChange={() => setIsolationMode('worktree')}
+                  disabled={isCreating}
+                />
+                <span>Worktree (default)</span>
+              </label>
+              <label className="flex items-center gap-2 text-xs">
+                <input
+                  type="radio"
+                  name="isolation-mode"
+                  value="branch"
+                  checked={isolationMode === 'branch'}
+                  onChange={() => setIsolationMode('branch')}
+                  disabled={isCreating}
+                />
+                <span>Branch (better for macOS builds)</span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
