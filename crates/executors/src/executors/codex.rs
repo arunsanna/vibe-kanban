@@ -101,6 +101,8 @@ pub struct Codex {
     pub include_plan_tool: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub include_apply_patch_tool: Option<bool>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub enable_web_search: Option<bool>,
     #[serde(flatten)]
     pub cmd: CmdOverrides,
 }
@@ -138,6 +140,12 @@ impl Codex {
 
         if self.oss.unwrap_or(false) {
             builder = builder.extend_params(["--oss"]);
+        }
+
+        if let Some(true) = self.enable_web_search {
+            tracing::warn!(
+                "Codex CLI v0.46.0 removed the `--search` flag. Configure search via CmdOverrides or the Codex config file."
+            );
         }
 
         apply_overrides(builder, &self.cmd)
@@ -315,5 +323,49 @@ impl Codex {
             }
         }
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn base_codex() -> Codex {
+        Codex {
+            append_prompt: AppendPrompt::default(),
+            sandbox: None,
+            oss: None,
+            model: None,
+            model_reasoning_effort: None,
+            model_reasoning_summary: None,
+            model_reasoning_summary_format: None,
+            profile: None,
+            base_instructions: None,
+            include_plan_tool: None,
+            include_apply_patch_tool: None,
+            enable_web_search: None,
+            cmd: CmdOverrides::default(),
+        }
+    }
+
+    #[test]
+    fn omits_search_flag_by_default() {
+        let command = base_codex().build_command_builder().build_initial();
+        assert!(
+            !command.contains("--search"),
+            "expected command `{command}` to omit --search"
+        );
+    }
+
+    #[test]
+    fn respects_additional_params_for_search_flag() {
+        let mut codex = base_codex();
+        codex.cmd.additional_params = Some(vec!["--search".to_string()]);
+
+        let command = codex.build_command_builder().build_initial();
+        assert!(
+            command.contains("--search"),
+            "expected command `{command}` to include --search when supplied via additional params"
+        );
     }
 }

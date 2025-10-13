@@ -1,0 +1,804 @@
+
+> vibe-kanban@0.0.106 dev /Users/megamind/code/Personal-projects/vibe-kanban
+> export FRONTEND_PORT=$(node scripts/setup-dev-environment.js frontend) && export BACKEND_PORT=$(node scripts/setup-dev-environment.js backend) && concurrently "pnpm run backend:dev:watch" "pnpm run frontend:dev"
+
+[1] 
+[1] > vibe-kanban@0.0.106 frontend:dev /Users/megamind/code/Personal-projects/vibe-kanban
+[1] > pnpm --dir frontend run dev -- --port ${FRONTEND_PORT:-3000} --host
+[1] 
+[0] 
+[0] > vibe-kanban@0.0.106 backend:dev:watch /Users/megamind/code/Personal-projects/vibe-kanban
+[0] > DISABLE_WORKTREE_ORPHAN_CLEANUP=1 RUST_LOG=debug cargo watch -w crates -x 'run --bin server'
+[0] 
+[1] 
+[1] > vibe-kanban@0.0.55 dev /Users/megamind/code/Personal-projects/vibe-kanban/frontend
+[1] > VITE_OPEN=${VITE_OPEN:-false} vite -- --port 3005 --host
+[1] 
+[1] [sentry-vite-plugin] Info: Sending telemetry data on issues and performance to Sentry. To disable telemetry, set `options.telemetry` to `false`.
+[0] [Running 'cargo run --bin server']
+[1] 
+[1]   VITE v5.4.20  ready in 429 ms
+[1] 
+[1]   ➜  Local:   http://localhost:3005/
+[1]   ➜  Network: use --host to expose
+[0] warning: server@0.0.106: Creating dummy frontend/dist directory for compilation
+[0]     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.27s
+[0]      Running `target/debug/server`
+[0] [2m2025-10-10T16:48:05.603410Z[0m [32m INFO[0m [2mexecutors::profile[0m[2m:[0m Loaded user profile overrides from profiles.json
+[0] [2m2025-10-10T16:48:05.623126Z[0m [32m INFO[0m [2mlocal_deployment[0m[2m:[0m Starting orphaned image cleanup...
+[0] [2m2025-10-10T16:48:05.623432Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m Orphan worktree cleanup is disabled via DISABLE_WORKTREE_ORPHAN_CLEANUP environment variable
+[0] [2m2025-10-10T16:48:05.623570Z[0m [34mDEBUG[0m [2mservices::services::image[0m[2m:[0m No orphaned images found during cleanup
+[0] [2m2025-10-10T16:48:05.624472Z[0m [32m INFO[0m [2mservices::services::pr_monitor[0m[2m:[0m Starting PR monitoring service with interval 60s
+[0] [2m2025-10-10T16:48:05.624513Z[0m [32m INFO[0m [2mservices::services::file_search_cache[0m[2m:[0m Starting file search cache warming...
+[0] [2m2025-10-10T16:48:05.624678Z[0m [32m INFO[0m [2mlocal_deployment::container[0m[2m:[0m Starting periodic worktree cleanup...
+[0] [2m2025-10-10T16:48:05.625582Z[0m [32m INFO[0m [2mservices::services::file_search_cache[0m[2m:[0m Warming cache for 1 projects: ["/Users/megamind/code/Personal-projects/ai-playground"]
+[0] [2m2025-10-10T16:48:05.625812Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m Checking 1 active worktrees for external deletion...
+[0] [2m2025-10-10T16:48:05.625918Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:48:05.626160Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m No expired worktrees found
+[0] [2m2025-10-10T16:48:05.627089Z[0m [32m INFO[0m [2mservices::services::file_search_cache[0m[2m:[0m Setup file watcher for repo: "/Users/megamind/code/Personal-projects/ai-playground"
+[0] [2m2025-10-10T16:48:05.627121Z[0m [32m INFO[0m [2mservices::services::file_search_cache[0m[2m:[0m Building cache for repo: "/Users/megamind/code/Personal-projects/ai-playground"
+[0] [2m2025-10-10T16:48:05.627562Z[0m [32m INFO[0m [2mservices::services::file_search_cache[0m[2m:[0m File search cache warming completed
+[0] [2m2025-10-10T16:48:05.628822Z[0m [34mDEBUG[0m [2mutils::port_file[0m[2m:[0m Writing port 3006 to "/var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban/vibe-kanban.port"
+[0] [2m2025-10-10T16:48:05.629930Z[0m [32m INFO[0m [2mserver[0m[2m:[0m Server running on http://127.0.0.1:3006
+[0] [2m2025-10-10T16:48:06.848319Z[0m [32m INFO[0m [2mservices::services::file_search_cache[0m[2m:[0m Successfully cached repo: "/Users/megamind/code/Personal-projects/ai-playground"
+[0] [2m2025-10-10T16:49:05.627115Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [Running 'cargo run --bin server']
+[0]     Blocking waiting for file lock on package cache
+[0]     Blocking waiting for file lock on package cache
+[0]     Blocking waiting for file lock on package cache
+[0]    Compiling executors v0.0.106 (/Users/megamind/code/Personal-projects/vibe-kanban/crates/executors)
+[0] warning: server@0.0.106: Creating dummy frontend/dist directory for compilation
+[0]    Compiling db v0.0.106 (/Users/megamind/code/Personal-projects/vibe-kanban/crates/db)
+[0]    Compiling services v0.0.106 (/Users/megamind/code/Personal-projects/vibe-kanban/crates/services)
+[0]    Compiling deployment v0.0.106 (/Users/megamind/code/Personal-projects/vibe-kanban/crates/deployment)
+[0]    Compiling local-deployment v0.0.106 (/Users/megamind/code/Personal-projects/vibe-kanban/crates/local-deployment)
+[0]    Compiling server v0.0.106 (/Users/megamind/code/Personal-projects/vibe-kanban/crates/server)
+[0]     Finished `dev` profile [unoptimized + debuginfo] target(s) in 10.88s
+[0]      Running `target/debug/server`
+[0] [2m2025-10-10T16:50:08.981844Z[0m [32m INFO[0m [2mexecutors::profile[0m[2m:[0m Loaded user profile overrides from profiles.json
+[0] [2m2025-10-10T16:50:09.023127Z[0m [32m INFO[0m [2mlocal_deployment[0m[2m:[0m Starting orphaned image cleanup...
+[0] [2m2025-10-10T16:50:09.024084Z[0m [34mDEBUG[0m [2mservices::services::image[0m[2m:[0m No orphaned images found during cleanup
+[0] [2m2025-10-10T16:50:09.024551Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m Orphan worktree cleanup is disabled via DISABLE_WORKTREE_ORPHAN_CLEANUP environment variable
+[0] [2m2025-10-10T16:50:09.026060Z[0m [32m INFO[0m [2mlocal_deployment::container[0m[2m:[0m Starting periodic worktree cleanup...
+[0] [2m2025-10-10T16:50:09.026209Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m Checking 0 active worktrees for external deletion...
+[0] [2m2025-10-10T16:50:09.026923Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m No expired worktrees found
+[0] [2m2025-10-10T16:50:09.028556Z[0m [32m INFO[0m [2mservices::services::pr_monitor[0m[2m:[0m Starting PR monitoring service with interval 60s
+[0] [2m2025-10-10T16:50:09.029031Z[0m [32m INFO[0m [2mservices::services::file_search_cache[0m[2m:[0m Starting file search cache warming...
+[0] [2m2025-10-10T16:50:09.030322Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:50:09.031194Z[0m [32m INFO[0m [2mservices::services::file_search_cache[0m[2m:[0m No active projects found, skipping cache warming
+[0] [2m2025-10-10T16:50:09.041013Z[0m [34mDEBUG[0m [2mutils::port_file[0m[2m:[0m Writing port 3006 to "/var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban/vibe-kanban.port"
+[0] [2m2025-10-10T16:50:09.043346Z[0m [32m INFO[0m [2mserver[0m[2m:[0m Server running on http://127.0.0.1:3006
+ ELIFECYCLE  Command failed.
+[0] [2m2025-10-10T16:51:09.030181Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:52:09.032604Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:53:09.031626Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:54:09.031947Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:55:09.031235Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:56:09.031735Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:57:09.031725Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:58:09.030864Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:59:09.031599Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:00:09.032877Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:01:09.031670Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:02:09.031986Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:03:09.031177Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:04:09.032419Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:05:09.032217Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:06:09.032243Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:07:09.031371Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:08:09.032655Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:09:09.032073Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:10:09.031715Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:11:09.031720Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:12:09.031287Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:13:09.032610Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:14:09.031819Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:15:09.031827Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:16:09.033767Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:17:09.036483Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:18:09.036850Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:19:09.036732Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:20:09.031473Z[0m [32m INFO[0m [2mlocal_deployment::container[0m[2m:[0m Starting periodic worktree cleanup...
+[0] [2m2025-10-10T17:20:09.033542Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m Checking 1 active worktrees for external deletion...
+[0] [2m2025-10-10T17:20:09.036942Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m No expired worktrees found
+[0] [2m2025-10-10T17:20:09.036987Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:21:09.037130Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:22:09.036986Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:23:09.036751Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:24:09.036923Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:25:09.036547Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:26:09.036561Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:27:09.037445Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:28:09.037987Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:29:09.037222Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:30:09.036790Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:31:09.039759Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:32:09.037640Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:33:09.037443Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:34:09.036865Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:35:09.036996Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:36:09.038324Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0]  ELIFECYCLE  Command failed.
+[0] pnpm run backend:dev:watch exited with code SIGTERM
+[1]  ELIFECYCLE  Command failed.
+[1] pnpm run frontend:dev exited with code SIGTERM
+[34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:20:08.978051Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m Checking 1 active worktrees for external deletion...
+[0] [2m2025-10-10T17:20:08.980722Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m No expired worktrees found
+[0] [2m2025-10-10T17:21:08.980368Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:22:08.979218Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:23:08.979196Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:24:08.980274Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:25:08.979741Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:26:08.979428Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:27:08.980688Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:28:08.979195Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:29:08.980771Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:30:08.981137Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:31:08.980121Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:32:08.979766Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:33:08.979989Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:34:08.980376Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:35:08.980930Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:36:08.980699Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0]  ELIFECYCLE  Command failed.
+[0] pnpm run backend:dev:watch exited with code SIGTERM
+[1]  ELIFECYCLE  Command failed.
+[1] pnpm run frontend:dev exited with code SIGTERM
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      [1] 12:48:19 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 12:48:19 PM [vite] ws proxy socket error:
+[1] Error: read ECONNRESET
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[1] 12:48:19 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 12:48:19 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 12:48:19 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 12:48:19 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 12:48:20 PM [vite] ws proxy socket error:
+[1] Error: read ECONNRESET
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[1] 12:48:20 PM [vite] ws proxy socket error:
+[1] Error: read ECONNRESET
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[1] 12:48:30 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 12:49:58 PM [vite] ws proxy error:
+[1] Error: socket hang up
+[1]     at Socket.socketOnEnd (node:_http_client:598:25)
+[1]     at Socket.emit (node:events:520:35)
+[1]     at endReadableNT (node:internal/streams/readable:1701:12)
+[1]     at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+[1] 12:50:02 PM [vite] ws proxy error:
+[1] Error: socket hang up
+[1]     at Socket.socketOnEnd (node:_http_client:598:25)
+[1]     at Socket.emit (node:events:520:35)
+[1]     at endReadableNT (node:internal/streams/readable:1701:12)
+[1]     at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+[1] 12:50:09 PM [vite] hmr update /src/App.tsx, /src/styles/index.css, /src/components/config-provider.tsx, /src/components/theme-provider.tsx, /src/components/dialogs/projects/ProjectEditorSelectionDialog.tsx, /src/components/dialogs/global/OnboardingDialog.tsx, /src/components/dialogs/auth/GitHubLoginDialog.tsx, /src/components/dialogs/tasks/EditorSelectionDialog.tsx, /src/components/dialogs/tasks/CreatePRDialog.tsx, /src/pages/settings/GeneralSettings.tsx, /src/components/ide/OpenInIdeButton.tsx, /src/components/ui/json-editor.tsx, /src/components/ide/IdeIcon.tsx, /src/components/DiffCard.tsx, /src/components/NormalizedConversation/FileChangeRenderer.tsx, /src/components/NormalizedConversation/EditDiffRenderer.tsx, /src/components/logs/VirtualizedList.tsx
+[1] 12:50:09 PM [vite] hmr update /src/components/ExecutorConfigForm.tsx, /src/styles/index.css
+[1] 12:50:09 PM [vite] hmr update /src/components/ExecutorConfigForm.tsx, /src/styles/index.css
+[1] 12:50:09 PM [vite] hmr update /src/components/ExecutorConfigForm.tsx, /src/styles/index.css
+[1] 12:50:09 PM [vite] hmr update /src/components/ExecutorConfigForm.tsx, /src/styles/index.css
+[1] 12:50:09 PM [vite] hmr update /src/components/ExecutorConfigForm.tsx, /src/styles/index.css
+[1] 12:50:09 PM [vite] hmr update /src/components/ExecutorConfigForm.tsx, /src/styles/index.css
+[1] 12:50:09 PM [vite] hmr update /src/components/ExecutorConfigForm.tsx, /src/styles/index.css
+[1] 12:50:09 PM [vite] hmr update /src/components/ExecutorConfigForm.tsx, /src/styles/index.css
+[1] 12:50:09 PM [vite] hmr invalidate /src/components/config-provider.tsx Could not Fast Refresh ("useUserSystem" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[1] 12:50:09 PM [vite] hmr update /src/App.tsx, /src/styles/index.css, /src/components/dialogs/auth/ProvidePatDialog.tsx, /src/components/dialogs/global/PrivacyOptInDialog.tsx, /src/components/dialogs/global/OnboardingDialog.tsx, /src/components/dialogs/auth/GitHubLoginDialog.tsx, /src/components/dialogs/tasks/TaskFormDialog.tsx, /src/pages/settings/AgentSettings.tsx, /src/pages/settings/GeneralSettings.tsx, /src/pages/settings/McpSettings.tsx, /src/components/ide/OpenInIdeButton.tsx, /src/components/projects/project-form-fields.tsx, /src/components/tasks/TaskFollowUpSection.tsx, /src/components/tasks/TaskDetailsToolbar.tsx, /src/components/tasks/Toolbar/CurrentAttempt.tsx, /src/components/DiffCard.tsx, /src/components/tasks/TaskDetails/preview/NoServerContent.tsx, /src/components/NormalizedConversation/FileChangeRenderer.tsx, /src/components/NormalizedConversation/UserMessage.tsx, /src/components/NormalizedConversation/EditDiffRenderer.tsx, /src/components/NormalizedConversation/RetryEditorInline.tsx
+[1] 12:50:09 PM [vite] hmr invalidate /src/components/theme-provider.tsx Could not Fast Refresh ("useTheme" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[1] 12:50:09 PM [vite] hmr update /src/App.tsx, /src/styles/index.css, /src/utils/style-override.tsx, /src/pages/settings/GeneralSettings.tsx, /src/components/ui/json-editor.tsx, /src/components/ide/IdeIcon.tsx
+[1] 12:50:09 PM [vite] hmr invalidate /src/components/dialogs/projects/ProjectEditorSelectionDialog.tsx Could not Fast Refresh ("ProjectEditorSelectionDialog" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[1] 12:50:09 PM [vite] page reload src/components/dialogs/projects/ProjectEditorSelectionDialog.tsx
+[1] 12:50:09 PM [vite] hmr invalidate /src/components/dialogs/global/OnboardingDialog.tsx Could not Fast Refresh ("OnboardingDialog" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[1] 12:50:09 PM [vite] page reload src/components/dialogs/global/OnboardingDialog.tsx
+[1] 12:50:09 PM [vite] hmr invalidate /src/components/dialogs/auth/GitHubLoginDialog.tsx Could not Fast Refresh ("GitHubLoginDialog" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[1] 12:50:09 PM [vite] page reload src/components/dialogs/auth/GitHubLoginDialog.tsx
+[1] 12:50:09 PM [vite] hmr invalidate /src/components/dialogs/tasks/EditorSelectionDialog.tsx Could not Fast Refresh ("EditorSelectionDialog" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[1] 12:50:09 PM [vite] page reload src/components/dialogs/tasks/EditorSelectionDialog.tsx
+[1] 12:50:09 PM [vite] hmr invalidate /src/components/dialogs/tasks/CreatePRDialog.tsx Could not Fast Refresh ("CreatePRDialog" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[1] 12:50:09 PM [vite] page reload src/components/dialogs/tasks/CreatePRDialog.tsx
+[1] 12:50:36 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 12:50:42 PM [vite] ws proxy socket error:
+[1] Error: read ECONNRESET
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[1] 12:50:42 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:31:19 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:31:19 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:31:19 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:31:19 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:31:19 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:31:19 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:31:19 PM [vite] ws proxy socket error:
+[1] Error: read ECONNRESET
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[1] 1:31:19 PM [vite] ws proxy socket error:
+[1] Error: read ECONNRESET
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[1] 1:31:19 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:31:19 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:34:36 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:34:37 PM [vite] ws proxy socket error:
+[1] Error: read ECONNRESET
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[1] 1:34:37 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at Readable.read (node:internal/streams/readable:780:10)
+[1]     at Socket.read (node:net:785:39)
+[1]     at flow (node:internal/streams/readable:1286:53)
+[1]     at emitReadable_ (node:internal/streams/readable:845:3)
+[1]     at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+[1] 1:34:37 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:34:37 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:34:37 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:34:37 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:34:37 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:34:38 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] 1:34:38 PM [vite] ws proxy socket error:
+[1] Error: write EPIPE
+[1]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[1]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[1]     at Socket._writeGeneric (node:net:966:11)
+[1]     at Socket._write (node:net:978:8)
+[1]     at writeOrBuffer (node:internal/streams/writable:570:12)
+[1]     at _write (node:internal/streams/writable:499:10)
+[1]     at Writable.write (node:internal/streams/writable:508:10)
+[1]     at Socket.ondata (node:internal/streams/readable:1008:24)
+[1]     at Socket.emit (node:events:508:28)
+[1]     at addChunk (node:internal/streams/readable:559:12)
+[1]     at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+[1]     at Readable.push (node:internal/streams/readable:390:5)
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[1] npm run frontend:dev exited with code SIGTERM
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 [0] [2m2025-10-10T16:48:17.745552Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:17.746810Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:17.805977Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:19.912694Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:19.913256Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:19.913660Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:19.915294Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:19.921928Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:19.935905Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:19.955534Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:19.963823Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:19.971898Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:25.013458Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:25.015453Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:25.083916Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:30.118188Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:30.120166Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:30.186544Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:30.564287Z[0m [32m INFO[0m [2mserver::routes::task_attempts[0m[2m:[0m TaskAttempt { id: 3d1bcc35-2e3a-4e01-8fd9-8cf5baf3b1eb, task_id: c307147e-0041-44cb-89c0-10617be9ca5e, container_ref: Some("/var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ"), branch: "vk/3d1b-test-simple-answ", target_branch: "main", executor: "CODEX", worktree_deleted: false, setup_completed_at: None, created_at: 2025-10-10T16:16:56.999Z, updated_at: 2025-10-10T16:16:57.111770Z }
+[0] [2m2025-10-10T16:48:30.565656Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:30.566828Z[0m [32m INFO[0m [2mdb::models::execution_process[0m[2m:[0m Finding latest session id for task attempt 3d1bcc35-2e3a-4e01-8fd9-8cf5baf3b1eb
+[0] [2m2025-10-10T16:48:30.567110Z[0m [32m INFO[0m [2mdb::models::execution_process[0m[2m:[0m Latest session id: Some(Record { session_id: Some("b2a7679c-a2aa-4bcf-89fb-321782c9ea11") })
+[0] [2m2025-10-10T16:48:30.570859Z[0m [34mDEBUG[0m [2mdb::models::executor_session[0m[2m:[0m Creating executor session: id=b80d291e-badd-4b80-abed-5e92c1be885e, task_attempt_id=3d1bcc35-2e3a-4e01-8fd9-8cf5baf3b1eb, execution_process_id=7d51333d-4bc8-4309-97ff-b285bfcc47a7, external_session_id=None (will be set later)
+[1] 12:48:30 PM [vite] ws proxy error:
+[1] Error: read ECONNRESET
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[1] 12:48:30 PM [vite] ws proxy error:
+[1] Error: read ECONNRESET
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[1] 12:48:30 PM [vite] ws proxy error:
+[1] Error: read ECONNRESET
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[1] 12:48:30 PM [vite] ws proxy error:
+[1] Error: read ECONNRESET
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[0] [2m2025-10-10T16:48:31.141914Z[0m [34mDEBUG[0m [2mexecutors::executors::codex::session[0m[2m:[0m Forking rollout file: /Users/megamind/.codex/sessions/2025/10/10/rollout-2025-10-10T12-47-04-b2a7679c-a2aa-4bcf-89fb-321782c9ea11.jsonl
+[0] [2m2025-10-10T16:48:32.011958Z[0m [34mDEBUG[0m [2mexecutors::executors::codex[0m[2m:[0m resuming session using rollout file /Users/megamind/.codex/sessions/2025/10/10/rollout-2025-10-10T12-48-31-6b5792fd-ef7a-4c53-bcca-37bd43f5be7d.jsonl, response ResumeConversationResponse { conversation_id: ConversationId { uuid: 6b5792fd-ef7a-4c53-bcca-37bd43f5be7d }, model: "gpt-5", initial_messages: Some([UserMessage(UserMessageEvent { message: "Test-Simple-Answer", kind: Some(Plain), images: None }), TokenCount(TokenCountEvent { info: None, rate_limits: Some(RateLimitSnapshot { primary: Some(RateLimitWindow { used_percent: 1.0, window_minutes: Some(299), resets_in_seconds: Some(9406) }), secondary: Some(RateLimitWindow { used_percent: 7.0, window_minutes: Some(10079), resets_in_seconds: Some(427631) }) }) }), AgentReasoning(AgentReasoningEvent { text: "**Considering response format**\n\nI need to think about the test's expectations, which seem to be checking for a simple answer like \"OK\". To play it safe, I’ll keep my response minimal, saying \"Ready. Let's do that.\" The developer has indicated that for final answers, I should avoid heavy formatting—minimal is the way to go. It seems straightforward, and I just want to ensure I'm following those guidelines effectively!" }), AgentMessage(AgentMessageEvent { message: "Ready." }), TokenCount(TokenCountEvent { info: Some(TokenUsageInfo { total_token_usage: TokenUsage { input_tokens: 13257, cached_input_tokens: 0, output_tokens: 648, reasoning_output_tokens: 640, total_tokens: 13905 }, last_token_usage: TokenUsage { input_tokens: 13257, cached_input_tokens: 0, output_tokens: 648, reasoning_output_tokens: 640, total_tokens: 13905 }, model_context_window: Some(272000) }), rate_limits: Some(RateLimitSnapshot { primary: Some(RateLimitWindow { used_percent: 1.0, window_minutes: Some(299), resets_in_seconds: Some(9406) }), secondary: Some(RateLimitWindow { used_percent: 7.0, window_minutes: Some(10079), resets_in_seconds: Some(427631) }) }) }), UserMessage(UserMessageEvent { message: "What is the capital of India", kind: Some(Plain), images: None }), TokenCount(TokenCountEvent { info: None, rate_limits: Some(RateLimitSnapshot { primary: Some(RateLimitWindow { used_percent: 1.0, window_minutes: Some(299), resets_in_seconds: Some(9376) }), secondary: Some(RateLimitWindow { used_percent: 7.0, window_minutes: Some(10079), resets_in_seconds: Some(427600) }) }) }), AgentReasoning(AgentReasoningEvent { text: "**Providing capital information**\n\nI need to answer the user's question: \"What is the capital of India?\" The straightforward answer is New Delhi. I should also acknowledge that some sources may refer to Delhi as the National Capital Territory. Nonetheless, since the user asked simply for the capital, I'll keep it succinct. So, I should just say, \"New Delhi.\" It looks like they haven't asked for more details, and I won't need to make any tool calls for this." }), AgentReasoning(AgentReasoningEvent { text: "**Finalizing concise answer**\n\nI need to provide a specific and straightforward answer to the question, \"What is the capital of India?\" The answer is \"New Delhi,\" without any extra details. Although some may consider including that it's also the National Capital Territory, the user simply asked for the capital. I’ll follow the formatting guidelines to keep it concise and clear. So, my final answer will just be \"New Delhi,\" ensuring I capitalize it correctly." }), AgentMessage(AgentMessageEvent { message: "New Delhi." }), TokenCount(TokenCountEvent { info: Some(TokenUsageInfo { total_token_usage: TokenUsage { input_tokens: 13275, cached_input_tokens: 13056, output_tokens: 329, reasoning_output_tokens: 320, total_tokens: 13604 }, last_token_usage: TokenUsage { input_tokens: 13275, cached_input_tokens: 13056, output_tokens: 329, reasoning_output_tokens: 320, total_tokens: 13604 }, model_context_window: Some(272000) }), rate_limits: Some(RateLimitSnapshot { primary: Some(RateLimitWindow { used_percent: 1.0, window_minutes: Some(299), resets_in_seconds: Some(9376) }), secondary: Some(RateLimitWindow { used_percent: 7.0, window_minutes: Some(10079), resets_in_seconds: Some(427600) }) }) }), UserMessage(UserMessageEvent { message: "what is capital of USA", kind: Some(Plain), images: None }), TokenCount(TokenCountEvent { info: None, rate_limits: Some(RateLimitSnapshot { primary: Some(RateLimitWindow { used_percent: 2.0, window_minutes: Some(299), resets_in_seconds: Some(8102) }), secondary: Some(RateLimitWindow { used_percent: 8.0, window_minutes: Some(10079), resets_in_seconds: Some(426326) }) }) }), AgentReasoning(AgentReasoningEvent { text: "**Providing a simple answer**\n\nI’m focusing on answering the user’s question about the capital of the USA. They previously got “New Delhi” for India, so now it’s time to give “Washington, D.C.” as the answer. I want to keep it minimal and crisp, adhering to the style guidelines while not being verbose. Since it’s a straightforward response, I won’t call any tools or use heavy formatting, just ensuring correct punctuation." }), AgentReasoning(AgentReasoningEvent { text: "**Delivering a clear answer**\n\nI want to provide the correct answer to the question about the capital of the USA. The proper way is to say \"Washington, D.C.\" rather than \"Washington DC,\" even though the latter can be acceptable sometimes. My focus is on being concise and clear, providing just the answer without any extra formatting or disclaimers. Therefore, the final response will simply reflect this: \"Washington, D.C.\" Keeping it plain and straightforward is essential!" }), AgentMessage(AgentMessageEvent { message: "Washington, D.C." }), TokenCount(TokenCountEvent { info: Some(TokenUsageInfo { total_token_usage: TokenUsage { input_tokens: 13293, cached_input_tokens: 0, output_tokens: 395, reasoning_output_tokens: 384, total_tokens: 13688 }, last_token_usage: TokenUsage { input_tokens: 13293, cached_input_tokens: 0, output_tokens: 395, reasoning_output_tokens: 384, total_tokens: 13688 }, model_context_window: Some(272000) }), rate_limits: Some(RateLimitSnapshot { primary: Some(RateLimitWindow { used_percent: 2.0, window_minutes: Some(299), resets_in_seconds: Some(8102) }), secondary: Some(RateLimitWindow { used_percent: 8.0, window_minutes: Some(10079), resets_in_seconds: Some(426326) }) }) }), UserMessage(UserMessageEvent { message: "capital of Canada?", kind: Some(Plain), images: None }), TokenCount(TokenCountEvent { info: None, rate_limits: Some(RateLimitSnapshot { primary: Some(RateLimitWindow { used_percent: 2.0, window_minutes: Some(299), resets_in_seconds: Some(7600) }), secondary: Some(RateLimitWindow { used_percent: 8.0, window_minutes: Some(10079), resets_in_seconds: Some(425824) }) }) }), AgentMessage(AgentMessageEvent { message: "Ottawa." }), TokenCount(TokenCountEvent { info: Some(TokenUsageInfo { total_token_usage: TokenUsage { input_tokens: 13312, cached_input_tokens: 0, output_tokens: 137, reasoning_output_tokens: 128, total_tokens: 13449 }, last_token_usage: TokenUsage { input_tokens: 13312, cached_input_tokens: 0, output_tokens: 137, reasoning_output_tokens: 128, total_tokens: 13449 }, model_context_window: Some(272000) }), rate_limits: Some(RateLimitSnapshot { primary: Some(RateLimitWindow { used_percent: 2.0, window_minutes: Some(299), resets_in_seconds: Some(7600) }), secondary: Some(RateLimitWindow { used_percent: 8.0, window_minutes: Some(10079), resets_in_seconds: Some(425824) }) }) })]) }
+[0] [2m2025-10-10T16:48:35.216343Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:35.217842Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:35.288599Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:40.322573Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:40.324341Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:40.398168Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:40.437443Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m Committing changes for task attempt 3d1bcc35-2e3a-4e01-8fd9-8cf5baf3b1eb at path "/var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ": 'Mexico City.'
+[0] [2m2025-10-10T16:48:40.444459Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:40.445044Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:40.454938Z[0m [34mDEBUG[0m [2mservices::services::git[0m[2m:[0m No changes to commit!
+[0] [2m2025-10-10T16:48:40.454980Z[0m [32m INFO[0m [2mlocal_deployment::container[0m[2m:[0m Skipping cleanup script for task attempt 3d1bcc35-2e3a-4e01-8fd9-8cf5baf3b1eb - no changes made by coding agent
+[0] [2m2025-10-10T16:48:40.501947Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:45.538900Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:45.541037Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:45.610768Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:47.059635Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:48:50.646731Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:50.648363Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:48:50.713996Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:49:44.951543Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:49:44.952432Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:49:45.004889Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:49:47.059524Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:49:50.035438Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:49:50.036452Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:49:50.096328Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ
+[0] [2m2025-10-10T16:49:51.246236Z[0m [32m INFO[0m [1mbackground_worktree_cleanup[0m[1m{[0m[3mtask_id[0m[2m=[0mc307147e-0041-44cb-89c0-10617be9ca5e[1m}[0m[2m:[0m [2mserver::routes::tasks[0m[2m:[0m Starting background cleanup for task c307147e-0041-44cb-89c0-10617be9ca5e (1 worktrees)
+[0] [2m2025-10-10T16:49:51.246295Z[0m [34mDEBUG[0m [1mbackground_worktree_cleanup[0m[1m{[0m[3mtask_id[0m[2m=[0mc307147e-0041-44cb-89c0-10617be9ca5e[1m}[0m[2m:[0m [2mservices::services::container[0m[2m:[0m Cleaning up worktree for attempt 3d1bcc35-2e3a-4e01-8fd9-8cf5baf3b1eb: "/var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/3d1b-test-simple-answ"
+[0] [2m2025-10-10T16:49:51.246968Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Performing cleanup for worktree: 3d1b-test-simple-answ
+[0] [2m2025-10-10T16:49:51.303612Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Comprehensive cleanup completed for worktree: 3d1b-test-simple-answ
+[0] [2m2025-10-10T16:49:51.303717Z[0m [32m INFO[0m [2mserver::routes::tasks[0m[2m:[0m Background cleanup completed for task c307147e-0041-44cb-89c0-10617be9ca5e
+[0] [Running 'cargo run --bin server']
+[0]     Blocking waiting for file lock on package cache
+[0]     Blocking waiting for file lock on package cache
+[0]     Blocking waiting for file lock on package cache
+[0]     Blocking waiting for file lock on package cache
+[0]     Blocking waiting for file lock on build directory
+[1] 12:49:58 PM [vite] ws proxy error:
+[1] AggregateError [ECONNREFUSED]: 
+[1]     at internalConnectMultiple (node:net:1134:18)
+[1]     at afterConnectMultiple (node:net:1715:7)
+[1] 12:50:02 PM [vite] ws proxy error:
+[1] AggregateError [ECONNREFUSED]: 
+[1]     at internalConnectMultiple (node:net:1134:18)
+[1]     at afterConnectMultiple (node:net:1715:7)
+[1] 12:50:04 PM [vite] http proxy error: /api/tasks/create-and-start
+[1] AggregateError [ECONNREFUSED]: 
+[1]     at internalConnectMultiple (node:net:1134:18)
+[1]     at afterConnectMultiple (node:net:1715:7)
+[0] warning: server@0.0.106: Creating dummy frontend/dist directory for compilation
+[0]     Finished `dev` profile [unoptimized + debuginfo] target(s) in 10.93s
+[0]      Running `target/debug/server`
+[1] 12:50:07 PM [vite] http proxy error: /api/tasks/create-and-start
+[1] AggregateError [ECONNREFUSED]: 
+[1]     at internalConnectMultiple (node:net:1134:18)
+[1]     at afterConnectMultiple (node:net:1715:7)
+[0] [2m2025-10-10T16:50:08.981814Z[0m [32m INFO[0m [2mexecutors::profile[0m[2m:[0m Loaded user profile overrides from profiles.json
+[0] [2m2025-10-10T16:50:09.023046Z[0m [32m INFO[0m [2mlocal_deployment[0m[2m:[0m Starting orphaned image cleanup...
+[0] [2m2025-10-10T16:50:09.024100Z[0m [34mDEBUG[0m [2mservices::services::image[0m[2m:[0m No orphaned images found during cleanup
+[0] [2m2025-10-10T16:50:09.024487Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m Orphan worktree cleanup is disabled via DISABLE_WORKTREE_ORPHAN_CLEANUP environment variable
+[0] [2m2025-10-10T16:50:09.025896Z[0m [32m INFO[0m [2mlocal_deployment::container[0m[2m:[0m Starting periodic worktree cleanup...
+[0] [2m2025-10-10T16:50:09.026157Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m Checking 0 active worktrees for external deletion...
+[0] [2m2025-10-10T16:50:09.026848Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m No expired worktrees found
+[0] [2m2025-10-10T16:50:09.028598Z[0m [32m INFO[0m [2mservices::services::pr_monitor[0m[2m:[0m Starting PR monitoring service with interval 60s
+[0] [2m2025-10-10T16:50:09.029026Z[0m [32m INFO[0m [2mservices::services::file_search_cache[0m[2m:[0m Starting file search cache warming...
+[0] [2m2025-10-10T16:50:09.029926Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:50:09.031000Z[0m [32m INFO[0m [2mservices::services::file_search_cache[0m[2m:[0m No active projects found, skipping cache warming
+[0] [2m2025-10-10T16:50:09.040961Z[0m [34mDEBUG[0m [2mutils::port_file[0m[2m:[0m Writing port 3002 to "/var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban/vibe-kanban.port"
+[0] [2m2025-10-10T16:50:09.043296Z[0m [32m INFO[0m [2mserver[0m[2m:[0m Server running on http://127.0.0.1:3002
+[0] [2m2025-10-10T16:50:42.296949Z[0m [32m INFO[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree needs recreation at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:42.296993Z[0m [32m INFO[0m [2mservices::services::worktree_manager[0m[2m:[0m Creating worktree vk/5dbe-qa-bot at path /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:42.297280Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Performing cleanup for worktree: 5dbe-qa-bot
+[0] [2m2025-10-10T16:50:42.328699Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m git worktree remove non-fatal error: git command failed: fatal: '/var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot' is not a working tree
+[0] [2m2025-10-10T16:50:42.344669Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Comprehensive cleanup completed for worktree: 5dbe-qa-bot
+[0] [2m2025-10-10T16:50:42.388771Z[0m [32m INFO[0m [2mservices::services::worktree_manager[0m[2m:[0m Successfully created worktree vk/5dbe-qa-bot at /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot (git CLI)
+[0] [2m2025-10-10T16:50:42.393423Z[0m [34mDEBUG[0m [2mdb::models::executor_session[0m[2m:[0m Creating executor session: id=eaedea15-1980-46d5-8e95-c108f98c8786, task_attempt_id=5dbee478-ad45-4501-99e6-c9a0bdfa8fef, execution_process_id=68dbcbae-f4ad-4009-b234-396c96f12089, external_session_id=None (will be set later)
+[0] [2m2025-10-10T16:50:42.397419Z[0m [32m INFO[0m [2mserver::routes::tasks[0m[2m:[0m Started execution process 68dbcbae-f4ad-4009-b234-396c96f12089
+[0] [2m2025-10-10T16:50:42.448711Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:42.454025Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:42.454884Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:42.455121Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:42.517555Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:42.993504Z[0m [31mERROR[0m [2mlocal_deployment::container[0m[2m:[0m Failed to kill process group after exit signal: 68dbcbae-f4ad-4009-b234-396c96f12089 Failed to kill process: ESRCH: No such process
+[0] [2m2025-10-10T16:50:42.993692Z[0m [31mERROR[0m [2mexecutors::executors::codex[0m[2m:[0m Codex spawn error: I/O error: server was shutdown while waiting for initialize response
+[0] [2m2025-10-10T16:50:42.999023Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m No assistant message found for execution 68dbcbae-f4ad-4009-b234-396c96f12089
+[0] [2m2025-10-10T16:50:42.999184Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m No summary found for execution process 68dbcbae-f4ad-4009-b234-396c96f12089, using default message
+[0] [2m2025-10-10T16:50:42.999202Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m Committing changes for task attempt 5dbee478-ad45-4501-99e6-c9a0bdfa8fef at path "/var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot": 'Commit changes from coding agent for task attempt 5dbee478-ad45-4501-99e6-c9a0bdfa8fef'
+[1] 12:50:43 PM [vite] ws proxy error:
+[1] Error: read ECONNRESET
+[1]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[0] [2m2025-10-10T16:50:43.010533Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:43.011157Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:43.021061Z[0m [34mDEBUG[0m [2mservices::services::git[0m[2m:[0m No changes to commit!
+[0] [2m2025-10-10T16:50:43.021096Z[0m [32m INFO[0m [2mlocal_deployment::container[0m[2m:[0m Skipping cleanup script for task attempt 5dbee478-ad45-4501-99e6-c9a0bdfa8fef - no changes made by coding agent
+[0] [2m2025-10-10T16:50:43.061633Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:53.194909Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:53.196184Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:53.250352Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:57.758312Z[0m [32m INFO[0m [2mserver::routes::task_attempts[0m[2m:[0m TaskAttempt { id: 5dbee478-ad45-4501-99e6-c9a0bdfa8fef, task_id: 0adaa7af-bdf6-402b-b0b0-5651e5fcff9c, container_ref: Some("/var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot"), branch: "vk/5dbe-qa-bot", target_branch: "main", executor: "CODEX", worktree_deleted: false, setup_completed_at: None, created_at: 2025-10-10T16:50:42.291Z, updated_at: 2025-10-10T16:50:42.389158Z }
+[0] [2m2025-10-10T16:50:57.759397Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:57.759942Z[0m [32m INFO[0m [2mdb::models::execution_process[0m[2m:[0m Finding latest session id for task attempt 5dbee478-ad45-4501-99e6-c9a0bdfa8fef
+[0] [2m2025-10-10T16:50:57.760320Z[0m [32m INFO[0m [2mdb::models::execution_process[0m[2m:[0m Latest session id: None
+[0] [2m2025-10-10T16:50:57.763180Z[0m [34mDEBUG[0m [2mdb::models::executor_session[0m[2m:[0m Creating executor session: id=af2a811a-26b4-4d23-b784-cfb953d41bc9, task_attempt_id=5dbee478-ad45-4501-99e6-c9a0bdfa8fef, execution_process_id=28589eb8-3929-496d-93da-bf2fb9296654, external_session_id=None (will be set later)
+[0] [2m2025-10-10T16:50:58.275396Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:58.276005Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:58.318028Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:58.328272Z[0m [31mERROR[0m [2mexecutors::executors::codex[0m[2m:[0m Codex spawn error: I/O error: server was shutdown while waiting for initialize response
+[0] [2m2025-10-10T16:50:58.328268Z[0m [31mERROR[0m [2mlocal_deployment::container[0m[2m:[0m Failed to kill process group after exit signal: 28589eb8-3929-496d-93da-bf2fb9296654 Failed to kill process: ESRCH: No such process
+[0] [2m2025-10-10T16:50:58.330682Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m No assistant message found for execution 28589eb8-3929-496d-93da-bf2fb9296654
+[0] [2m2025-10-10T16:50:58.330809Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m No summary found for execution process 28589eb8-3929-496d-93da-bf2fb9296654, using default message
+[0] [2m2025-10-10T16:50:58.330822Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m Committing changes for task attempt 5dbee478-ad45-4501-99e6-c9a0bdfa8fef at path "/var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot": 'Commit changes from coding agent for task attempt 5dbee478-ad45-4501-99e6-c9a0bdfa8fef'
+[0] [2m2025-10-10T16:50:58.346063Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:58.346717Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:50:58.348518Z[0m [34mDEBUG[0m [2mservices::services::git[0m[2m:[0m No changes to commit!
+[0] [2m2025-10-10T16:50:58.348540Z[0m [32m INFO[0m [2mlocal_deployment::container[0m[2m:[0m Skipping cleanup script for task attempt 5dbee478-ad45-4501-99e6-c9a0bdfa8fef - no changes made by coding agent
+[0] [2m2025-10-10T16:50:58.396115Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:51:09.030480Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:52:09.031251Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:52:23.902528Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:52:23.905234Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:52:23.971017Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T16:53:09.031605Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:54:09.032237Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:55:09.031908Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:56:09.032329Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:57:09.030986Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:58:09.032999Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T16:59:09.031457Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:00:09.032910Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:01:09.031679Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:02:09.031911Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:03:09.031144Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:04:09.032347Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:05:09.031705Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:06:09.032179Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:07:09.031336Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:08:09.032363Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:09:09.031330Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:10:09.031519Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:11:09.031715Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:12:09.032166Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:13:09.031493Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:14:09.031687Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:15:09.031628Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:16:09.033746Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:17:09.036223Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:18:09.036377Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:19:09.036406Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:20:09.031549Z[0m [32m INFO[0m [2mlocal_deployment::container[0m[2m:[0m Starting periodic worktree cleanup...
+[0] [2m2025-10-10T17:20:09.033186Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m Checking 1 active worktrees for external deletion...
+[0] [2m2025-10-10T17:20:09.034493Z[0m [34mDEBUG[0m [2mlocal_deployment::container[0m[2m:[0m No expired worktrees found
+[0] [2m2025-10-10T17:20:09.034945Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:21:09.036708Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:22:09.037397Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:23:09.036751Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:24:09.036935Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:25:09.038713Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:26:09.036746Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:27:09.036381Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:28:09.037999Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:29:09.037374Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:30:09.036983Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:31:09.040073Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:31:19.307059Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:31:19.310166Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:31:19.310622Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:31:19.310941Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:31:19.325993Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:31:19.335902Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:31:19.364647Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:31:24.398664Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:31:24.400725Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:31:24.475835Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:32:09.037735Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:33:09.037345Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:34:09.038354Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:34:37.932448Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:34:37.936081Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:34:37.937748Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:34:37.938368Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:34:37.940700Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:34:37.946921Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:34:37.988607Z[0m [34mDEBUG[0m [2mservices::services::worktree_manager[0m[2m:[0m Worktree already properly set up at path: /var/folders/8v/dkcx_6xd3vl9ywwt6jzybwvh0000gn/T/vibe-kanban-dev/worktrees/5dbe-qa-bot
+[0] [2m2025-10-10T17:35:09.037140Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] [2m2025-10-10T17:36:09.038430Z[0m [34mDEBUG[0m [2mservices::services::pr_monitor[0m[2m:[0m No open PRs to check
+[0] npm run backend:dev:watch exited with code SIGTERM
+[1] npm run frontend:dev exited with code SIGTERM

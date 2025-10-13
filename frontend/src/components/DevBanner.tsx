@@ -1,8 +1,11 @@
 import { AlertTriangle } from 'lucide-react';
 
+const bannerEnabled =
+  import.meta.env.MODE === 'development' &&
+  import.meta.env.VITE_SHOW_DEV_BANNER === 'true';
+
 export function DevBanner() {
-  // Only show in development mode
-  if (import.meta.env.MODE !== 'development') {
+  if (!bannerEnabled) {
     return null;
   }
 

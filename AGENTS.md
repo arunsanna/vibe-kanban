@@ -1,40 +1,34 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- `crates/`: Rust workspace crates — `server` (API + bins), `db` (SQLx models/migrations), `executors`, `services`, `utils`, `deployment`, `local-deployment`.
-- `frontend/`: React + TypeScript app (Vite, Tailwind). Source in `frontend/src`.
-- `frontend/src/components/dialogs`: Dialog components for the frontend.
-- `shared/`: Generated TypeScript types (`shared/types.ts`). Do not edit directly.
-- `assets/`, `dev_assets_seed/`, `dev_assets/`: Packaged and local dev assets.
-- `npx-cli/`: Files published to the npm CLI package.
-- `scripts/`: Dev helpers (ports, DB preparation).
-
-## Managing Shared Types Between Rust and TypeScript
-
-ts-rs allows you to derive TypeScript types from Rust structs/enums. By annotating your Rust types with #[derive(TS)] and related macros, ts-rs will generate .ts declaration files for those types.
-When making changes to the types, you can regenerate them using `npm run generate-types`
-Do not manually edit shared/types.ts, instead edit crates/server/src/bin/generate_types.rs
+- `crates/` holds the Rust workspace: `server` (HTTP binaries), `db` (SQLx models + migrations), plus `executors`, `services`, `utils`, `deployment`, and `local-deployment`.
+- The React app lives in `frontend/` (`frontend/src` for source; dialogs under `frontend/src/components/dialogs`).
+- Generated TS types land in `shared/types.ts`; edit `crates/server/src/bin/generate_types.rs` and rerun `npm run generate-types` instead of touching the output.
+- Assets sit in `assets/`, `dev_assets/`, and `dev_assets_seed/`; CLI artifacts in `npx-cli/`; helper scripts in `scripts/`.
 
 ## Build, Test, and Development Commands
-- Install: `pnpm i`
-- Run dev (frontend + backend with ports auto-assigned): `pnpm run dev`
-- Backend (watch): `npm run backend:dev:watch`
-- Frontend (dev): `npm run frontend:dev`
-- Type checks: `npm run check` (frontend) and `npm run backend:check` (Rust cargo check)
-- Rust tests: `cargo test --workspace`
-- Generate TS types from Rust: `npm run generate-types` (or `generate-types:check` in CI)
-- Prepare SQLx (offline): `npm run prepare-db`
-- Local NPX build: `npm run build:npx` then `npm pack` in `npx-cli/`
+- `pnpm i` installs workspace dependencies.
+- `pnpm run dev` runs frontend and backend together with auto-assigned ports.
+- `npm run backend:dev:watch` and `npm run frontend:dev` watch the Rust API and React app independently.
+- `npm run backend:check` plus `cargo test --workspace` cover Rust checks and tests.
+- `npm run check`, `npm run lint`, and `npm run build` cover TypeScript type checking, linting, and production Vite builds.
+- `npm run generate-types` refreshes shared types; `npm run prepare-db` stages SQLx offline data.
 
 ## Coding Style & Naming Conventions
-- Rust: `rustfmt` enforced (`rustfmt.toml`); group imports by crate; snake_case modules, PascalCase types.
-- TypeScript/React: ESLint + Prettier (2 spaces, single quotes, 80 cols). PascalCase components, camelCase vars/functions, kebab-case file names where practical.
-- Keep functions small, add `Debug`/`Serialize`/`Deserialize` where useful.
+- Rust: obey `rustfmt.toml`, group imports by crate, keep modules snake_case and types PascalCase, derive `Debug`/`Serialize`/`Deserialize` when useful.
+- TypeScript/React: ESLint + Prettier enforce 2-space indentation, single quotes, 80-column guide; components PascalCase, functions/vars camelCase, files prefer kebab-case.
+- Keep functions tight and add comments only for non-obvious logic.
 
 ## Testing Guidelines
-- Rust: prefer unit tests alongside code (`#[cfg(test)]`), run `cargo test --workspace`. Add tests for new logic and edge cases.
-- Frontend: ensure `npm run check` and `npm run lint` pass. If adding runtime logic, include lightweight tests (e.g., Vitest) in the same directory.
+- Rust tests stay next to the code under `#[cfg(test)]`; run `cargo test --workspace` before pushing.
+- Frontend uses Vite/Vitest; place specs beside components and ensure `npm run check` plus `npm run lint` pass cleanly.
+- After changing shared types, run `npm run generate-types` and review `shared/types.ts`.
 
-## Security & Config Tips
-- Use `.env` for local overrides; never commit secrets. Key envs: `FRONTEND_PORT`, `BACKEND_PORT`, `HOST`, optional `GITHUB_CLIENT_ID` for custom OAuth.
-- Dev ports and assets are managed by `scripts/setup-dev-environment.js`.
+## Commit & Pull Request Guidelines
+- History favors imperative subjects with scopes like `fix:` or `chore:` and PR numbers, e.g. `fix: retry modal horizontal overflow (#991)`.
+- Keep commits focused on a single change set and call out migrations or generated artifacts when included.
+- PRs should outline intent, link issues, list command results (`cargo test`, `npm run check`, etc.), and attach UI evidence when behavior shifts.
+
+## Security & Configuration Tips
+- Keep secrets in `.env`; configure `FRONTEND_PORT`, `BACKEND_PORT`, `HOST`, and optional `GITHUB_CLIENT_ID` there.
+- Use `scripts/setup-dev-environment.js` to sync dev ports and assets and avoid committing local overrides.

@@ -13,6 +13,7 @@ import {
 import { Alert, AlertDescription } from '@/components/ui/alert';
 //
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { imagesApi } from '@/lib/api.ts';
 import type { TaskWithAttemptStatus } from 'shared/types';
 import { useBranchStatus } from '@/hooks';
@@ -318,6 +319,39 @@ export function TaskFollowUpSection({
     when: canSendFollowUp && !isDraftLocked && !isQueuing && !isUnqueuing,
   });
 
+  const handleTextareaKeyDown = useCallback(
+    (event: ReactKeyboardEvent<Element>) => {
+      if (
+        event.key !== 'Enter' ||
+        event.shiftKey ||
+        event.altKey ||
+        event.metaKey ||
+        event.ctrlKey
+      ) {
+        return;
+      }
+      if (
+        !canSendFollowUp ||
+        isDraftLocked ||
+        !isDraftLoaded ||
+        isSendingFollowUp ||
+        isRetryActive
+      ) {
+        return;
+      }
+      event.preventDefault();
+      void handleSubmitShortcut(event.nativeEvent);
+    },
+    [
+      canSendFollowUp,
+      isDraftLocked,
+      isDraftLoaded,
+      isSendingFollowUp,
+      isRetryActive,
+      handleSubmitShortcut,
+    ]
+  );
+
   // Enable FOLLOW_UP scope when textarea is focused AND editable
   useEffect(() => {
     if (isEditable && isTextareaFocused) {
@@ -486,6 +520,7 @@ export function TaskFollowUpSection({
                   setFollowUpMessage(value);
                   if (followUpError) setFollowUpError(null);
                 }}
+                onKeyDown={handleTextareaKeyDown}
                 disabled={!isEditable}
                 showLoadingOverlay={isUnqueuing || !isDraftLoaded}
                 onPasteFiles={handlePasteImages}

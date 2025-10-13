@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FollowUpEditorCard } from '@/components/tasks/follow-up/FollowUpEditorCard';
 import { FollowUpStatusRow } from '@/components/tasks/FollowUpStatusRow';
@@ -233,6 +234,26 @@ export function RetryEditorInline({
     }
   };
 
+  const handleEditorKeyDown = useCallback(
+    (event: ReactKeyboardEvent<Element>) => {
+      if (
+        event.key !== 'Enter' ||
+        event.shiftKey ||
+        event.altKey ||
+        event.metaKey ||
+        event.ctrlKey
+      ) {
+        return;
+      }
+      if (!canSend || isSending || isFinalizing) {
+        return;
+      }
+      event.preventDefault();
+      void onSend();
+    },
+    [canSend, isSending, isFinalizing, onSend]
+  );
+
   // Once server stream clears retry_draft, exit retry mode (both cancel and send)
   useEffect(() => {
     const stillRetrying = !!retryDraft?.retry_process_id;
@@ -263,7 +284,7 @@ export function RetryEditorInline({
         placeholder="Edit and resend your message…"
         value={message}
         onChange={setMessage}
-        onKeyDown={() => void 0}
+        onKeyDown={handleEditorKeyDown}
         disabled={isSending || !!isFinalizing}
         showLoadingOverlay={isSending || !!isFinalizing}
         textareaClassName="bg-background"
