@@ -132,6 +132,12 @@ pub struct CreateTaskAttemptBody {
     /// Executor profile specification
     pub executor_profile_id: ExecutorProfileId,
     pub base_branch: String,
+    #[serde(default = "default_isolation_mode")]
+    pub isolation_mode: db::models::task_attempt::IsolationMode,
+}
+
+fn default_isolation_mode() -> db::models::task_attempt::IsolationMode {
+    db::models::task_attempt::IsolationMode::Worktree
 }
 
 impl CreateTaskAttemptBody {
@@ -163,6 +169,7 @@ pub async fn create_task_attempt(
             executor: executor_profile_id.executor,
             base_branch: payload.base_branch.clone(),
             branch: git_branch_name.clone(),
+            isolation_mode: payload.isolation_mode.clone(),
         },
         attempt_id,
         payload.task_id,

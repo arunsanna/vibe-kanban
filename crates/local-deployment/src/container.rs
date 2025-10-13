@@ -621,6 +621,25 @@ impl LocalContainerService {
         .await
         .map_err(|e| ContainerError::Other(anyhow!("{e}")))
     }
+
+    /// Branch-mode live diff stream (diffs branch vs base branch; watches repo path)
+    async fn create_live_diff_stream_branch(
+        &self,
+        repo_path: &Path,
+        branch: &str,
+        base_branch: &str,
+        stats_only: bool,
+    ) -> Result<DiffStreamHandle, ContainerError> {
+        diff_stream::create_for_branch(
+            self.git().clone(),
+            repo_path.to_path_buf(),
+            branch.to_string(),
+            base_branch.to_string(),
+            stats_only,
+        )
+        .await
+        .map_err(|e| ContainerError::Other(anyhow!("{e}")))
+    }
 }
 
 fn success_exit_status() -> std::process::ExitStatus {
@@ -664,57 +683,78 @@ impl ContainerService for LocalContainerService {
             .await?
             .ok_or(sqlx::Error::RowNotFound)?;
 
-        let worktree_dir_name =
-            LocalContainerService::dir_name_from_task_attempt(&task_attempt.id, &task.title);
-        let worktree_path = WorktreeManager::get_worktree_base_dir().join(&worktree_dir_name);
-
         let project = task
             .parent_project(&self.db.pool)
             .await?
             .ok_or(sqlx::Error::RowNotFound)?;
+        match task_attempt.isolation_mode {
+            db::models::task_attempt::IsolationMode::Worktree => {
+                let worktree_dir_name =
+                    LocalContainerService::dir_name_from_task_attempt(&task_attempt.id, &task.title);
+                let worktree_path = WorktreeManager::get_worktree_base_dir().join(&worktree_dir_name);
 
-        WorktreeManager::create_worktree(
-            &project.git_repo_path,
-            &task_attempt.branch,
-            &worktree_path,
-            &task_attempt.target_branch,
-            true, // create new branch
-        )
-        .await?;
+                WorktreeManager::create_worktree(
+                    &project.git_repo_path,
+                    &task_attempt.branch,
+                    &worktree_path,
+                    &task_attempt.target_branch,
+                    true, // create new branch
+                )
+                .await?;
 
-        // Copy files specified in the project's copy_files field
-        if let Some(copy_files) = &project.copy_files
-            && !copy_files.trim().is_empty()
-        {
-            self.copy_project_files(&project.git_repo_path, &worktree_path, copy_files)
-                .await
-                .unwrap_or_else(|e| {
-                    tracing::warn!("Failed to copy project files: {}", e);
-                });
+                // Copy files specified in the project's copy_files field
+                if let Some(copy_files) = &project.copy_files
+                    && !copy_files.trim().is_empty()
+                {
+                    self.copy_project_files(&project.git_repo_path, &worktree_path, copy_files)
+                        .await
+                        .unwrap_or_else(|e| {
+                            tracing::warn!("Failed to copy project files: {}", e);
+                        });
+                }
+
+                // Copy task images from cache to worktree
+                if let Err(e) = self
+                    .image_service
+                    .copy_images_by_task_to_worktree(&worktree_path, task.id)
+                    .await
+                {
+                    tracing::warn!("Failed to copy task images to worktree: {}", e);
+                }
+
+                TaskAttempt::update_container_ref(
+                    &self.db.pool,
+                    task_attempt.id,
+                    &worktree_path.to_string_lossy(),
+                )
+                .await?;
+                Ok(worktree_path.to_string_lossy().to_string())
+            }
+            db::models::task_attempt::IsolationMode::Branch => {
+                // Ensure branch exists at target base and checkout in primary repo
+                let git = services::services::git_cli::GitCli::new();
+                // Create branch from target if it doesn't exist; if it exists, `branch` will error, so ignore failure
+                let _ = git.git(
+                    &project.git_repo_path,
+                    ["branch", &task_attempt.branch, &task_attempt.target_branch],
+                );
+                // Checkout the task branch in primary repo
+                git.git(&project.git_repo_path, ["checkout", &task_attempt.branch])
+                    .map_err(|e| ContainerError::Other(anyhow!(e.to_string())))?;
+
+                // container_ref is the primary repo path in Branch mode
+                TaskAttempt::update_container_ref(
+                    &self.db.pool,
+                    task_attempt.id,
+                    &project.git_repo_path.to_string_lossy(),
+                )
+                .await?;
+                Ok(project.git_repo_path.to_string_lossy().to_string())
+            }
         }
-
-        // Copy task images from cache to worktree
-        if let Err(e) = self
-            .image_service
-            .copy_images_by_task_to_worktree(&worktree_path, task.id)
-            .await
-        {
-            tracing::warn!("Failed to copy task images to worktree: {}", e);
-        }
-
-        // Update both container_ref and branch in the database
-        TaskAttempt::update_container_ref(
-            &self.db.pool,
-            task_attempt.id,
-            &worktree_path.to_string_lossy(),
-        )
-        .await?;
-
-        Ok(worktree_path.to_string_lossy().to_string())
     }
 
     async fn delete_inner(&self, task_attempt: &TaskAttempt) -> Result<(), ContainerError> {
-        // cleanup the container, here that means deleting the worktree
         let task = task_attempt
             .parent_task(&self.db.pool)
             .await?
@@ -727,19 +767,32 @@ impl ContainerService for LocalContainerService {
                 None
             }
         };
-        WorktreeManager::cleanup_worktree(
-            &PathBuf::from(task_attempt.container_ref.clone().unwrap_or_default()),
-            git_repo_path.as_deref(),
-        )
-        .await
-        .unwrap_or_else(|e| {
-            tracing::warn!(
-                "Failed to clean up worktree for task attempt {}: {}",
-                task_attempt.id,
-                e
-            );
-        });
-        Ok(())
+        match task_attempt.isolation_mode {
+            db::models::task_attempt::IsolationMode::Worktree => {
+                // cleanup the container, here that means deleting the worktree
+                WorktreeManager::cleanup_worktree(
+                    &PathBuf::from(task_attempt.container_ref.clone().unwrap_or_default()),
+                    git_repo_path.as_deref(),
+                )
+                .await
+                .unwrap_or_else(|e| {
+                    tracing::warn!(
+                        "Failed to clean up worktree for task attempt {}: {}",
+                        task_attempt.id,
+                        e
+                    );
+                });
+                Ok(())
+            }
+            db::models::task_attempt::IsolationMode::Branch => {
+                // For Branch mode, do not delete directories. Optionally, switch back to target branch.
+                if let Some(repo_path) = &git_repo_path {
+                    let git = services::services::git_cli::GitCli::new();
+                    let _ = git.git(repo_path, ["checkout", &task_attempt.target_branch]);
+                }
+                Ok(())
+            }
+        }
     }
 
     async fn ensure_container_exists(
@@ -760,29 +813,42 @@ impl ContainerService for LocalContainerService {
         let container_ref = task_attempt.container_ref.as_ref().ok_or_else(|| {
             ContainerError::Other(anyhow!("Container ref not found for task attempt"))
         })?;
-        let worktree_path = PathBuf::from(container_ref);
-
-        WorktreeManager::ensure_worktree_exists(
-            &project.git_repo_path,
-            &task_attempt.branch,
-            &worktree_path,
-        )
-        .await?;
-
-        Ok(container_ref.to_string())
+        match task_attempt.isolation_mode {
+            db::models::task_attempt::IsolationMode::Worktree => {
+                let worktree_path = PathBuf::from(container_ref);
+                WorktreeManager::ensure_worktree_exists(
+                    &project.git_repo_path,
+                    &task_attempt.branch,
+                    &worktree_path,
+                )
+                .await?;
+                Ok(container_ref.to_string())
+            }
+            db::models::task_attempt::IsolationMode::Branch => {
+                // Ensure branch exists and is checked out in primary repo
+                let git = services::services::git_cli::GitCli::new();
+                // try create (ignore error if exists)
+                let _ = git.git(
+                    &project.git_repo_path,
+                    ["branch", &task_attempt.branch, &task_attempt.target_branch],
+                );
+                // checkout
+                git.git(&project.git_repo_path, ["checkout", &task_attempt.branch])
+                    .map_err(|e| ContainerError::Other(anyhow!(e.to_string())))?;
+                Ok(container_ref.to_string())
+            }
+        }
     }
 
     async fn is_container_clean(&self, task_attempt: &TaskAttempt) -> Result<bool, ContainerError> {
         if let Some(container_ref) = &task_attempt.container_ref {
-            // If container_ref is set, check if the worktree exists
             let path = PathBuf::from(container_ref);
-            if path.exists() {
-                self.git().is_worktree_clean(&path).map_err(|e| e.into())
-            } else {
-                return Ok(true); // No worktree means it's clean
+            if !path.exists() {
+                return Ok(true);
             }
+            self.git().is_worktree_clean(&path).map_err(|e| e.into())
         } else {
-            return Ok(true); // No container_ref means no worktree, so it's clean
+            return Ok(true);
         }
     }
 
@@ -919,17 +985,31 @@ impl ContainerService for LocalContainerService {
         }
 
         let container_ref = self.ensure_container_exists(task_attempt).await?;
-        let worktree_path = PathBuf::from(container_ref);
-        let base_commit = self.git().get_base_commit(
-            &project_repo_path,
-            &task_attempt.branch,
-            &task_attempt.target_branch,
-        )?;
-
-        let wrapper = self
-            .create_live_diff_stream(&worktree_path, &base_commit, stats_only)
-            .await?;
-        Ok(Box::pin(wrapper))
+        match task_attempt.isolation_mode {
+            db::models::task_attempt::IsolationMode::Worktree => {
+                let worktree_path = PathBuf::from(container_ref);
+                let base_commit = self.git().get_base_commit(
+                    &project_repo_path,
+                    &task_attempt.branch,
+                    &task_attempt.target_branch,
+                )?;
+                let wrapper = self
+                    .create_live_diff_stream(&worktree_path, &base_commit, stats_only)
+                    .await?;
+                Ok(Box::pin(wrapper))
+            }
+            db::models::task_attempt::IsolationMode::Branch => {
+                let wrapper = self
+                    .create_live_diff_stream_branch(
+                        &project_repo_path,
+                        &task_attempt.branch,
+                        &task_attempt.target_branch,
+                        stats_only,
+                    )
+                    .await?;
+                Ok(Box::pin(wrapper))
+            }
+        }
     }
 
     async fn try_commit_changes(&self, ctx: &ExecutionContext) -> Result<bool, ContainerError> {

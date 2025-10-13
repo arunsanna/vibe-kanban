@@ -1,6 +1,6 @@
 {
   "db_name": "SQLite",
-  "query": "SELECT  id                AS \"id!: Uuid\",\n                       task_id           AS \"task_id!: Uuid\",\n                       container_ref,\n                       branch,\n                       target_branch,\n                       executor AS \"executor!\",\n                       worktree_deleted  AS \"worktree_deleted!: bool\",\n                       setup_completed_at AS \"setup_completed_at: DateTime<Utc>\",\n                       created_at        AS \"created_at!: DateTime<Utc>\",\n                       updated_at        AS \"updated_at!: DateTime<Utc>\"\n               FROM    task_attempts\n               WHERE   rowid = $1",
+  "query": "INSERT INTO task_attempts (id, task_id, container_ref, branch, target_branch, isolation_mode, executor, worktree_deleted, setup_completed_at)\n               VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)\n               RETURNING id as \"id!: Uuid\", task_id as \"task_id!: Uuid\", container_ref, branch, target_branch, isolation_mode as \"isolation_mode!: IsolationMode\", executor as \"executor!\",  worktree_deleted as \"worktree_deleted!: bool\", setup_completed_at as \"setup_completed_at: DateTime<Utc>\", created_at as \"created_at!: DateTime<Utc>\", updated_at as \"updated_at!: DateTime<Utc>\"",
   "describe": {
     "columns": [
       {
@@ -29,38 +29,44 @@
         "type_info": "Text"
       },
       {
-        "name": "executor!",
+        "name": "isolation_mode!: IsolationMode",
         "ordinal": 5,
         "type_info": "Text"
       },
       {
-        "name": "worktree_deleted!: bool",
+        "name": "executor!",
         "ordinal": 6,
+        "type_info": "Text"
+      },
+      {
+        "name": "worktree_deleted!: bool",
+        "ordinal": 7,
         "type_info": "Bool"
       },
       {
         "name": "setup_completed_at: DateTime<Utc>",
-        "ordinal": 7,
+        "ordinal": 8,
         "type_info": "Datetime"
       },
       {
         "name": "created_at!: DateTime<Utc>",
-        "ordinal": 8,
+        "ordinal": 9,
         "type_info": "Text"
       },
       {
         "name": "updated_at!: DateTime<Utc>",
-        "ordinal": 9,
+        "ordinal": 10,
         "type_info": "Text"
       }
     ],
     "parameters": {
-      "Right": 1
+      "Right": 9
     },
     "nullable": [
       true,
       false,
       true,
+      false,
       false,
       false,
       true,
@@ -70,5 +76,5 @@
       false
     ]
   },
-  "hash": "e1e95d9c5f4c13404e222f101438c15e30611d4cd86a7c05a3fb20618e9ce2f2"
+  "hash": "bde3b8d0c4895d8a07d6f730bca732aa0f6e7cb3015fcf41882f54e6ebd6d7ec"
 }

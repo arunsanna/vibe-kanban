@@ -34,6 +34,14 @@ pub enum TaskAttemptStatus {
     ExecutorFailed,
 }
 
+#[derive(Debug, Clone, Type, Serialize, Deserialize, PartialEq, Eq, TS)]
+#[sqlx(type_name = "isolation_mode", rename_all = "snake_case")]
+#[serde(rename_all = "snake_case")]
+pub enum IsolationMode {
+    Worktree,
+    Branch,
+}
+
 #[derive(Debug, Clone, FromRow, Serialize, Deserialize, TS)]
 pub struct TaskAttempt {
     pub id: Uuid,
@@ -41,6 +49,7 @@ pub struct TaskAttempt {
     pub container_ref: Option<String>, // Path to a worktree (local), or cloud container id
     pub branch: String,                // Git branch name for this task attempt
     pub target_branch: String,         // Target branch for this attempt
+    pub isolation_mode: IsolationMode, // Worktree or Branch
     pub executor: String, // Name of the base coding agent to use ("AMP", "CLAUDE_CODE",
     // "GEMINI", etc.)
     pub worktree_deleted: bool, // Flag indicating if worktree has been cleaned up
@@ -84,6 +93,7 @@ pub struct CreateTaskAttempt {
     pub executor: BaseCodingAgent,
     pub base_branch: String,
     pub branch: String,
+    pub isolation_mode: IsolationMode,
 }
 
 impl TaskAttempt {
@@ -104,6 +114,7 @@ impl TaskAttempt {
                               container_ref,
                               branch,
                               target_branch,
+                              isolation_mode as "isolation_mode!: IsolationMode",
                               executor AS "executor!",
                               worktree_deleted AS "worktree_deleted!: bool",
                               setup_completed_at AS "setup_completed_at: DateTime<Utc>",
@@ -124,6 +135,7 @@ impl TaskAttempt {
                               container_ref,
                               branch,
                               target_branch,
+                              isolation_mode as "isolation_mode!: IsolationMode",
                               executor AS "executor!",
                               worktree_deleted AS "worktree_deleted!: bool",
                               setup_completed_at AS "setup_completed_at: DateTime<Utc>",
@@ -155,6 +167,7 @@ impl TaskAttempt {
                        ta.container_ref,
                        ta.branch,
                        ta.target_branch,
+                       ta.isolation_mode as "isolation_mode!: IsolationMode",
                        ta.executor AS "executor!",
                        ta.worktree_deleted  AS "worktree_deleted!: bool",
                        ta.setup_completed_at AS "setup_completed_at: DateTime<Utc>",
@@ -228,6 +241,7 @@ impl TaskAttempt {
                        container_ref,
                        branch,
                        target_branch,
+                       isolation_mode as "isolation_mode!: IsolationMode",
                        executor AS "executor!",
                        worktree_deleted  AS "worktree_deleted!: bool",
                        setup_completed_at AS "setup_completed_at: DateTime<Utc>",
@@ -249,6 +263,7 @@ impl TaskAttempt {
                        container_ref,
                        branch,
                        target_branch,
+                       isolation_mode as "isolation_mode!: IsolationMode",
                        executor AS "executor!",
                        worktree_deleted  AS "worktree_deleted!: bool",
                        setup_completed_at AS "setup_completed_at: DateTime<Utc>",
@@ -372,14 +387,15 @@ impl TaskAttempt {
         // Insert the record into the database
         Ok(sqlx::query_as!(
             TaskAttempt,
-            r#"INSERT INTO task_attempts (id, task_id, container_ref, branch, target_branch, executor, worktree_deleted, setup_completed_at)
-               VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-               RETURNING id as "id!: Uuid", task_id as "task_id!: Uuid", container_ref, branch, target_branch, executor as "executor!",  worktree_deleted as "worktree_deleted!: bool", setup_completed_at as "setup_completed_at: DateTime<Utc>", created_at as "created_at!: DateTime<Utc>", updated_at as "updated_at!: DateTime<Utc>""#,
+            r#"INSERT INTO task_attempts (id, task_id, container_ref, branch, target_branch, isolation_mode, executor, worktree_deleted, setup_completed_at)
+               VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+               RETURNING id as "id!: Uuid", task_id as "task_id!: Uuid", container_ref, branch, target_branch, isolation_mode as "isolation_mode!: IsolationMode", executor as "executor!",  worktree_deleted as "worktree_deleted!: bool", setup_completed_at as "setup_completed_at: DateTime<Utc>", created_at as "created_at!: DateTime<Utc>", updated_at as "updated_at!: DateTime<Utc>""#,
             id,
             task_id,
             Option::<String>::None, // Container isn't known yet
             data.branch,
             data.base_branch, // Target branch is same as base branch during creation
+            data.isolation_mode as _,
             data.executor,
             false, // worktree_deleted is false during creation
             Option::<DateTime<Utc>>::None // setup_completed_at is None during creation

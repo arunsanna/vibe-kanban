@@ -485,6 +485,7 @@ impl TaskServer {
             task_id,
             executor_profile_id,
             base_branch,
+            isolation_mode: db::models::task_attempt::IsolationMode::Worktree,
         };
 
         let url = self.url("/api/task-attempts");

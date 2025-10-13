@@ -175,6 +175,7 @@ pub async fn create_task_and_start(
             executor: payload.executor_profile_id.executor,
             base_branch: payload.base_branch,
             branch: git_branch_name,
+            isolation_mode: db::models::task_attempt::IsolationMode::Worktree,
         },
         attempt_id,
         task.id,

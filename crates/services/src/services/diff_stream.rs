@@ -245,6 +245,173 @@ pub async fn create(
     ))
 }
 
+// Branch-mode watcher context
+struct BranchWatcherContext {
+    git_service: GitService,
+    repo_path: PathBuf,
+    branch: String,
+    base_branch: String,
+    cumulative: Arc<AtomicUsize>,
+    full_sent: Arc<std::sync::RwLock<HashSet<String>>>,
+    stats_only: bool,
+    tx: mpsc::Sender<Result<LogMsg, io::Error>>,
+}
+
+impl BranchWatcherContext {
+    async fn handle_events(
+        &self,
+        events: Vec<DebouncedEvent>,
+        canonical_repo_path: &Path,
+    ) -> bool {
+        let changed_paths = extract_changed_paths(&events, canonical_repo_path, &self.repo_path);
+        if changed_paths.is_empty() {
+            return true;
+        }
+
+        let git_service = self.git_service.clone();
+        let repo_path = self.repo_path.clone();
+        let branch = self.branch.clone();
+        let base_branch = self.base_branch.clone();
+        let cumulative = self.cumulative.clone();
+        let full_sent = self.full_sent.clone();
+        let stats_only = self.stats_only;
+
+        match tokio::task::spawn_blocking(move || {
+            process_file_changes_branch(
+                &git_service,
+                &repo_path,
+                &branch,
+                &base_branch,
+                &changed_paths,
+                &cumulative,
+                &full_sent,
+                stats_only,
+            )
+        })
+        .await
+        {
+            Ok(Ok(messages)) => send_messages(&self.tx, messages).await,
+            Ok(Err(err)) => {
+                tracing::error!("Error processing file changes (branch): {err}");
+                send_error(&self.tx, err.to_string()).await;
+                false
+            }
+            Err(join_err) => {
+                tracing::error!("Diff processing task join error (branch): {join_err}");
+                send_error(
+                    &self.tx,
+                    format!("Diff processing task join error: {join_err}"),
+                )
+                .await;
+                false
+            }
+        }
+    }
+}
+
+pub async fn create_for_branch(
+    git_service: GitService,
+    repo_path: PathBuf,
+    branch: String,
+    base_branch: String,
+    stats_only: bool,
+) -> Result<DiffStreamHandle, DiffStreamError> {
+    let initial_diffs_raw = git_service.get_diffs(
+        DiffTarget::Branch {
+            repo_path: &repo_path,
+            branch_name: &branch,
+            base_branch: &base_branch,
+        },
+        None,
+    )?;
+
+    let cumulative = Arc::new(AtomicUsize::new(0));
+    let full_sent = Arc::new(std::sync::RwLock::new(HashSet::<String>::new()));
+    let mut initial_diffs = Vec::with_capacity(initial_diffs_raw.len());
+    for mut diff in initial_diffs_raw {
+        apply_stream_omit_policy(&mut diff, &cumulative, stats_only);
+        initial_diffs.push(diff);
+    }
+
+    {
+        let mut guard = full_sent.write().unwrap();
+        for diff in &initial_diffs {
+            if !diff.content_omitted {
+                guard.insert(GitService::diff_path(diff));
+            }
+        }
+    }
+
+    let (tx, rx) = mpsc::channel::<Result<LogMsg, io::Error>>(DIFF_STREAM_CHANNEL_CAPACITY);
+    if !send_initial_diffs(&tx, initial_diffs).await {
+        return Ok(DiffStreamHandle::new(ReceiverStream::new(rx).boxed(), None));
+    }
+
+    let ctx = BranchWatcherContext {
+        git_service,
+        repo_path: repo_path.clone(),
+        branch,
+        base_branch,
+        cumulative,
+        full_sent,
+        stats_only,
+        tx: tx.clone(),
+    };
+
+    let watcher_task = tokio::spawn(async move {
+        let repo_path_for_spawn = repo_path;
+        let watcher_result = tokio::task::spawn_blocking(move || {
+            filesystem_watcher::async_watcher(repo_path_for_spawn)
+        })
+        .await;
+
+        let (debouncer, mut watcher_rx, canonical_repo_path) = match watcher_result {
+            Ok(Ok(parts)) => parts,
+            Ok(Err(e)) => {
+                tracing::error!("Failed to set up filesystem watcher: {e}");
+                send_error(&ctx.tx, e.to_string()).await;
+                return;
+            }
+            Err(join_err) => {
+                tracing::error!("Failed to spawn watcher setup: {join_err}");
+                send_error(
+                    &ctx.tx,
+                    format!("Failed to spawn watcher setup: {join_err}"),
+                )
+                .await;
+                return;
+            }
+        };
+
+        let _debouncer_guard = debouncer;
+
+        while let Some(result) = watcher_rx.next().await {
+            match result {
+                Ok(events) => {
+                    if !ctx.handle_events(events, &canonical_repo_path).await {
+                        return;
+                    }
+                }
+                Err(errors) => {
+                    let message = errors
+                        .iter()
+                        .map(|e| e.to_string())
+                        .collect::<Vec<_>>()
+                        .join("; ");
+                    tracing::error!("Filesystem watcher error: {message}");
+                    send_error(&ctx.tx, message).await;
+                    return;
+                }
+            }
+        }
+    });
+
+    Ok(DiffStreamHandle::new(
+        ReceiverStream::new(rx).boxed(),
+        Some(watcher_task),
+    ))
+}
+
 async fn send_initial_diffs(
     tx: &mpsc::Sender<Result<LogMsg, io::Error>>,
     diffs: Vec<Diff>,
@@ -351,6 +518,57 @@ fn process_file_changes(
         DiffTarget::Worktree {
             worktree_path,
             base_commit,
+        },
+        Some(&path_filter),
+    )?;
+
+    let mut msgs = Vec::new();
+    let mut files_with_diffs = HashSet::new();
+
+    for mut diff in current_diffs {
+        let file_path = GitService::diff_path(&diff);
+        files_with_diffs.insert(file_path.clone());
+        apply_stream_omit_policy(&mut diff, cumulative_bytes, stats_only);
+
+        if diff.content_omitted {
+            if full_sent_paths.read().unwrap().contains(&file_path) {
+                continue;
+            }
+        } else {
+            let mut guard = full_sent_paths.write().unwrap();
+            guard.insert(file_path.clone());
+        }
+
+        let patch = ConversationPatch::add_diff(escape_json_pointer_segment(&file_path), diff);
+        msgs.push(LogMsg::JsonPatch(patch));
+    }
+
+    for changed_path in changed_paths {
+        if !files_with_diffs.contains(changed_path) {
+            let patch = ConversationPatch::remove_diff(escape_json_pointer_segment(changed_path));
+            msgs.push(LogMsg::JsonPatch(patch));
+        }
+    }
+
+    Ok(msgs)
+}
+
+fn process_file_changes_branch(
+    git_service: &GitService,
+    repo_path: &Path,
+    branch: &str,
+    base_branch: &str,
+    changed_paths: &[String],
+    cumulative_bytes: &Arc<AtomicUsize>,
+    full_sent_paths: &Arc<std::sync::RwLock<HashSet<String>>>,
+    stats_only: bool,
+) -> Result<Vec<LogMsg>, DiffStreamError> {
+    let path_filter: Vec<&str> = changed_paths.iter().map(|s| s.as_str()).collect();
+    let current_diffs = git_service.get_diffs(
+        DiffTarget::Branch {
+            repo_path,
+            branch_name: branch,
+            base_branch,
         },
         Some(&path_filter),
     )?;
