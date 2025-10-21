@@ -46,6 +46,8 @@ export type Task = { id: string, project_id: string, title: string, description:
 
 export type TaskWithAttemptStatus = { has_in_progress_attempt: boolean, has_merged_attempt: boolean, last_attempt_failed: boolean, executor: string, id: string, project_id: string, title: string, description: string | null, status: TaskStatus, parent_task_attempt: string | null, created_at: string, updated_at: string, };
 
+export type IsolationMode = "worktree" | "branch";
+
 export type TaskRelationships = { parent_task: Task | null, current_attempt: TaskAttempt, children: Array<Task>, };
 
 export type CreateTask = { project_id: string, title: string, description: string | null, parent_task_attempt: string | null, image_ids: Array<string> | null, };
@@ -84,7 +86,7 @@ export type ChangeTargetBranchRequest = { new_target_branch: string, };
 
 export type ChangeTargetBranchResponse = { new_target_branch: string, status: [number, number], };
 
-export type CreateAndStartTaskRequest = { task: CreateTask, executor_profile_id: ExecutorProfileId, base_branch: string, };
+export type CreateAndStartTaskRequest = { task: CreateTask, executor_profile_id: ExecutorProfileId, base_branch: string, isolation_mode: IsolationMode, };
 
 export type CreateGitHubPrRequest = { title: string, body: string | null, target_branch: string | null, };
 
