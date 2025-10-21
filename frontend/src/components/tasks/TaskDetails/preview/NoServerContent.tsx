@@ -133,6 +133,7 @@ export function NoServerContent({
       },
       executor_profile_id: config.executor_profile,
       base_branch: 'main',
+      isolation_mode: 'worktree',
     });
   };
 

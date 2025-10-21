@@ -698,6 +698,7 @@ impl ContainerService for LocalContainerService {
                     tracing::warn!("Failed to copy project files: {}", e);
                 });
         }
+        }
 
         // Copy task images from cache to worktree
         if let Err(e) = self

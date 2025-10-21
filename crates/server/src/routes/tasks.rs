@@ -139,6 +139,12 @@ pub struct CreateAndStartTaskRequest {
     pub task: CreateTask,
     pub executor_profile_id: ExecutorProfileId,
     pub base_branch: String,
+    #[serde(default = "default_isolation_mode")]
+    pub isolation_mode: db::models::task_attempt::IsolationMode,
+}
+
+fn default_isolation_mode() -> db::models::task_attempt::IsolationMode {
+    db::models::task_attempt::IsolationMode::Worktree
 }
 
 pub async fn create_task_and_start(
